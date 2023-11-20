@@ -13,6 +13,7 @@ public class Input extends MouseAdapter {
     public void mouseClicked(MouseEvent e) {
 
     }*/
+    private boolean turn  = true;
     board board;
     public Input(board board){
         this.board = board;
@@ -24,7 +25,7 @@ public class Input extends MouseAdapter {
             int col = e.getX() / board.tileSize;
             int row = e.getY() / board.tileSize;
             Piece pieceXY = board.getPieec(col, row);
-            if(pieceXY != null){
+            if(pieceXY != null && pieceXY.isWhite == turn){
                 board.selectedPiece = pieceXY;
             }
     }
@@ -47,6 +48,10 @@ public class Input extends MouseAdapter {
 
             if(board.isValidMove(move)){
                 board.makeMove(move);
+                if(turn == true)
+                    turn = false;
+                else
+                    turn = true;
             }else{
                 board.selectedPiece.xPos = board.selectedPiece.col *  board.tileSize;
                 board.selectedPiece.yPos = board.selectedPiece.row *  board.tileSize;

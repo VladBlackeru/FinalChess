@@ -30,7 +30,9 @@ public class board extends JPanel {
 
         if(move.piece.name.equals("Pawn")){
             movePawn(move);
-        }else {
+        }else if(move.piece.name.equals("King")) {
+            move_King(move);
+        }
             move.piece.col = move.newCol;
             move.piece.row = move.newRow;
             move.piece.xPos = move.newCol * tileSize;
@@ -38,7 +40,22 @@ public class board extends JPanel {
             move.piece.isFirstMove = false;
 
             capture(move.capture);
-        }
+
+    }
+
+    private void move_King(Move move){
+            if(Math.abs(move.piece.col - move.newCol) == 2){
+                Piece rook;
+                if(move.piece.col < move.newCol){
+                    rook = getPieec(7, move.piece.row);
+                    rook.col = 5;
+                }else{
+                    rook = getPieec(0, move.piece.row);
+                    rook.col = 3;
+                }
+
+                rook.xPos = rook.col * tileSize;
+            }
     }
 
     private void movePawn(Move move) {
@@ -60,13 +77,6 @@ public class board extends JPanel {
             promotePawn(move);
         }
 
-        move.piece.col = move.newCol;
-        move.piece.row = move.newRow;
-        move.piece.xPos = move.newCol * tileSize;
-        move.piece.yPos = move.newRow * tileSize;
-        move.piece.isFirstMove = false;
-
-        capture(move.capture);
     }
 
     private void promotePawn(Move move) {
