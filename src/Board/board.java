@@ -13,6 +13,9 @@ public class board extends JPanel {
     ArrayList<Piece> pieceList = new ArrayList<>();
     public Piece selectedPiece;
     public int enPassantTile = -1;
+
+    public Check sah =  new Check(this);
+
     Input input = new Input(this);
 
     public Piece getPieec(int col, int row){
@@ -89,6 +92,10 @@ public class board extends JPanel {
             return false;
         }
 
+        if(sah.isKingChecked(move)){
+            return false;
+        }
+
         return true;
     }
 
@@ -97,6 +104,16 @@ public class board extends JPanel {
             return false;
         return p1.isWhite == p2.isWhite;
     }
+
+    Piece find_king(boolean isWhite){
+        for(Piece piece : pieceList){
+            if(isWhite ==  piece.isWhite && piece.name.equals("King")){
+                return piece;
+            }
+        }
+        return null;
+    }
+
 
     public int getTileNum(int col, int row){
         return row * this.row + col;
