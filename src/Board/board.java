@@ -25,7 +25,6 @@ public class board extends JPanel {
         return null;
     }
 
-
     public void makeMove(Move move){
 
         if(move.piece.name.equals("Pawn")){
