@@ -89,7 +89,8 @@ public class board extends JPanel {
 
 
     public boolean isValidMove(Move move){
-
+        if(move.newCol > 7 || move.newRow > 7)
+            return false;
         if(sameTeam(move.piece, move.capture)){
             return false;
         }
